@@ -78,7 +78,7 @@ class StoryList {
       method: "POST",
       data: {token: user.loginToken, story: newStory},
     });
-    return response.data;
+    return new Story(response.data.story);
   }
 }
 

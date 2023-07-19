@@ -8,6 +8,7 @@ const $storiesLoadingMsg = $("#stories-loading-msg");
 const $allStoriesList = $("#all-stories-list");
 const $submitStoryContainer = $("#story-submit-container");
 const $submitStorySubmit = $("#submit-story-submit");
+const $submitStoryForm = $("#story-submit-form")
 
 const $loginForm = $("#login-form");
 const $signupForm = $("#signup-form");
