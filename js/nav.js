@@ -38,9 +38,27 @@ function updateNavOnLogin() {
 
 /** Show menu for submitting story when the submit button is clicked */
 
-function navSubmitClick(evt) {
+async function navSubmitClick(evt) {
   console.debug("navSubmitClick", evt);
+  $submitStoryContainer.show();
 
+
+  console.log("ran")
+  await $submitStorySubmit.on("click", async function() {
+
+    const author = $("#submit-author").val();
+    const title = $("#submit-title").val();
+    const url = $("#submit-url").val();
+  
+    console.log(author, title, url)
+
+    if (author && title && url) {
+      let newStory = await storyList.addStory(currentUser,
+        {title, author, url});
+      $submitStoryContainer.hide()
+      console.log(newStory)
+    }
+  });
 }
 
 $navSubmit.on("click", navSubmitClick);

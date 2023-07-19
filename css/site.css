@@ -29,6 +29,13 @@ a:hover {
   text-decoration: underline;
 }
 
+hr {
+  margin-top: 0;
+  margin-bottom: 0;
+  border-width: 1px;
+  color: lightgrey;
+  width: 95%;
+}
 
 /* Site layout */
 
@@ -51,6 +58,7 @@ form {
   display: flex;
   flex-direction: column;
   margin: 8px 18px 0;
+  margin-top: 0px;
 }
 
 form > * {
@@ -120,4 +128,9 @@ form > hr {
     max-width: 900px;
     margin: 8px auto;
   }
+}
+
+
+#story-submit-form div:first-child {
+  margin-top: 20px;
 }
