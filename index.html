@@ -21,8 +21,7 @@
   <title>Hack or Snooze</title>
   <link
       rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       crossorigin="anonymous">
   <link rel="stylesheet" href="css/site.css">
   <link rel="stylesheet" href="css/user.css">
@@ -77,6 +76,9 @@
 
 <!-- area for stories (all stories, user stories, favorites) -->
 <section class="stories-container container">
+
+  <p id="no-favorites" class="hidden">No stories favorited yet :(</p>
+  <p id="no-user-stories" class="hidden">No stories shared by this user... yet :)</p>
 
   <!-- loading message (removed by JS after stories loaded) -->
   <div id="stories-loading-msg">Loading&hellip;</div>

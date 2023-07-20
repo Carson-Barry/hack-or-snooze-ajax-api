@@ -10,6 +10,9 @@ const $submitStoryContainer = $("#story-submit-container");
 const $submitStorySubmit = $("#submit-story-submit");
 const $submitStoryForm = $("#story-submit-form")
 
+const $noFavorites = $("#no-favorites")
+const $noUserStories = $("#no-user-stories")
+
 const $loginForm = $("#login-form");
 const $signupForm = $("#signup-form");
 
@@ -28,6 +31,8 @@ const $navLogOut = $("#nav-logout");
 
 function hidePageComponents() {
   const components = [
+    $noFavorites,
+    $noUserStories,
     $allStoriesList,
     $loginForm,
     $submitStoryContainer,

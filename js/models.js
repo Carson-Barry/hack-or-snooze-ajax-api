@@ -217,7 +217,11 @@ class User {
       data: {token: loginToken},
     });
 
-    return response.data.user.favorites;
+    const newFavorites = [];
+    for (let favorite of response.data.user.favorites) {
+      newFavorites.push(new Story(favorite))
+    }
+    return newFavorites;
   }
 
   storyIsFavorite(story) {

@@ -38,6 +38,12 @@ hr {
   width: 95%;
 }
 
+p {
+  margin-left: 20px;
+  margin-top: 15px;
+  margin-bottom: -20px;
+}
+
 /* Site layout */
 
 /* This is the basic box that the main part of the page goes into */
