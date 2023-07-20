@@ -197,4 +197,43 @@ class User {
       return null;
     }
   }
+
+
+  async addFavoriteStatus(story) {
+    const storyAction = "POST";
+    this.favorites = await this.toggleFavoriteAPI(storyAction, story)
+  }
+
+  async removeFavoriteStatus(story) {
+    const storyAction = "DELETE";
+    this.favorites = await this.toggleFavoriteAPI(storyAction, story)
+  }
+
+  async toggleFavoriteAPI(storyAction, story) {
+    const loginToken = this.loginToken;
+    const response = await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+      method: storyAction,
+      data: {token: loginToken},
+    });
+
+    return response.data.user.favorites;
+  }
+
+  storyIsFavorite(story) {
+    for (let checkStory of this.favorites) {
+      if (checkStory.storyId === story.storyId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  storyIsUser(story) {
+    if (story.username === this.username) {
+        return true;
+    }
+    return false;
+  }
+
 }
