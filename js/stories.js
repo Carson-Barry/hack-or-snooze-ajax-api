@@ -24,6 +24,11 @@ async function getAndShowStoriesOnStart() {
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
+  let trashIcon = "";
+  if (currentUser.storyIsUser(story)) {
+    trashIcon = "<i class='fa-solid fa-trash'></i>"
+  }
+
   let starStyle = "fa-regular";
   if (currentUser.storyIsFavorite(story)) {
     starStyle = "fa-solid";
@@ -32,6 +37,7 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
+        ${trashIcon}
         <i class="${starStyle} fa-star"></i>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
@@ -99,8 +105,6 @@ function putFavoriteStoriesOnPage() {
   else {
     $noFavorites.show();
   }
-
-  $(".favorite-star").on("click", favoriteStarClick);
 }
 
 function putUserStoriesOnPage() {
@@ -130,22 +134,19 @@ function putUserStoriesOnPage() {
 }
 
 
-/** Handle button presses for the "favorite" star */
+/** Handle button presses for action buttons */
 
-async function favoriteStarClick(evt) {
+async function favoriteStarClicked(evt) {
   let action;
   console.debug("favoriteStarClicked", evt);
-  if ($(evt.target).hasClass("fa-star")) {
-    if ($(evt.target).hasClass("fa-regular")) {
-      //Not favorited, add favorite
-      $(evt.target).removeClass("fa-regular").addClass("fa-solid");
-      action = "ADD";
-    }
-    else {
-      $(evt.target).removeClass("fa-solid").addClass("fa-regular")
-    }
+  if ($(evt.target).hasClass("fa-regular")) {
+    //Not favorited, add favorite
+    $(evt.target).removeClass("fa-regular").addClass("fa-solid");
+    action = "ADD";
   }
-
+  else {
+    $(evt.target).removeClass("fa-solid").addClass("fa-regular")
+  }
   for (let story of storyList.stories) {
     if (story.storyId === $(evt.target).parent().attr("id")) {
       if (action === "ADD") {
@@ -158,6 +159,36 @@ async function favoriteStarClick(evt) {
   }
 }
 
+async function trashClicked(evt) {
+  console.debug("trashClicked", evt);
+  for (let story of storyList.stories) {
+    if (story.storyId === $(evt.target).parent().attr("id")) {
+      await story.deleteStory(currentUser);
+      $(evt.target).parent().remove();
+    }
+  }
+
+  const newStoryArray = [];
+  for (let story of storyList.stories) {
+    if (story.storyId !== $(evt.target).parent().attr("id")) {
+      newStoryArray.push(story);
+    }
+  }
+  storyList.stories = newStoryArray;
+}
+
+async function iconClickHandler(evt) {
+
+  if ($(evt.target).hasClass("fa-star")) {
+    await favoriteStarClicked(evt);
+  }
+
+  if ($(evt.target).hasClass("fa-trash")) {
+    await trashClicked(evt);
+  }
+
+}
+
 $allStoriesList.on("click", async function(evt) {
-  await favoriteStarClick(evt)
+  await iconClickHandler(evt)
 })

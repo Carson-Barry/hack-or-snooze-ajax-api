@@ -26,6 +26,15 @@ class Story {
   getHostName() {
     return this.url.replace("http://", "").replace("https://", "").replace("www.", "").split("/")[0];
   }
+
+  async deleteStory(user) {
+    console.log(this.storyId)
+    const response = await axios({
+      url: `${BASE_URL}/stories/${this.storyId}`,
+      method: "DELETE",
+      data: {token: user.loginToken},
+    });
+  }
 }
 
 
