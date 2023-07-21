@@ -24,14 +24,16 @@ async function getAndShowStoriesOnStart() {
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
-  let trashIcon = "";
-  if (currentUser.storyIsUser(story)) {
-    trashIcon = "<i class='fa-solid fa-trash'></i>"
-  }
-
   let starStyle = "fa-regular";
-  if (currentUser.storyIsFavorite(story)) {
-    starStyle = "fa-solid";
+  let trashIcon = "";
+
+  if (currentUser) {
+    if (currentUser.storyIsUser(story)) {
+      trashIcon = "<i class='fa-solid fa-trash'></i>"
+    }
+    if (currentUser.storyIsFavorite(story)) {
+      starStyle = "fa-solid";
+    }
   }
 
   const hostName = story.getHostName();
